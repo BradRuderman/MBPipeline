@@ -1,0 +1,25 @@
+﻿@{
+    ViewBag.Title = "Maps";
+    ViewBag.Ready = "MapsLoad";
+}
+<script type="text/javascript"
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAzbxEzpDORl5gUwugGG8z8IGcxRULSEMQ&sensor=true">
+</script>
+<script type="text/javascript">
+    function initialize() {
+        var mapOptions = {
+            center: new google.maps.LatLng(-34.397, 150.644),
+            zoom: 8,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+        var map = new google.maps.Map(document.getElementById("map_canvas"),
+            mapOptions);
+    }
+</script>
+<div class="row" style="width:100%;height:500px;">
+    <div class="span9" style="height:100%">
+        <div id="map_canvas" style="height:100%">
+
+        </div>
+    </div>
+</div>

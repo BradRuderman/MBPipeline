@@ -1,0 +1,111 @@
+﻿@{
+    ViewBag.Title = "Account Details";
+}
+
+@{ MB_Pipeline.Controllers.Models.Account_Dashboard a = (MB_Pipeline.Controllers.Models.Account_Dashboard)ViewData["Account"];}
+@{ MB_Pipeline.Controllers.Models.Contact[] c = (MB_Pipeline.Controllers.Models.Contact[])ViewData["Contacts"];}
+@{ MB_Pipeline.Controllers.Models.Location[] l = (MB_Pipeline.Controllers.Models.Location[])ViewData["Locations"];}
+<h2>@a.name</h2>
+<div class="container">
+    <h3>Account Info<i class="icon-edit"></i></h3>
+    <div class="row">
+        <span class="span3">
+            <strong>Account Type:</strong>
+            @a.account_type
+        </span>
+        <span class="span3">
+            <strong>Parent Account:</strong>
+            @a.parent
+        </span>
+        <span class="span3">
+            <strong>Group:</strong>
+        </span>
+    </div>
+    <h3>Sales Information<a data-toggle="modal" href="/Accounts/SalesInformation?account=@a.ID" data-target="#myModal"><i class="icon-edit"></i></a></h3>
+    <div class="row account_table">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Sales Stage</th>
+                    <th>Account Rank</th>
+                    <th>Volume (Units)</th>
+                    <th>Revenue</th>
+                    <th>Visits Per Year</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>@a.sales_stage</td>
+                    <td>@a.account_rank</td>
+                    <td>@a.volume (@a.units)</td>
+                    <td>@String.Format("{0:C}", a.revenue)</td>
+                    <td>@a.visits_per_year</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <h3>Locations<a data-toggle="modal" href="/Locations/New?account=@a.ID" data-target="#myModal"><i class="icon-plus"></i></a></h3>
+    <div class="container">
+         @{          
+            for (int i = 1; i < (l != null ? l.Length : -1) + 1; i++)
+            {
+            <div class="row contact">
+                @{
+                for (int j = 0; j < 3; j++)
+                {
+                    if (i * j < l.Length)
+                    {
+                        MB_Pipeline.Controllers.Models.Location ll = l[i * j];
+                    <div class="span3">
+                        <address>
+                            <a data-toggle="modal" href="/Locations?location=@ll.id&account=@a.ID" data-target="#myModal"><i class="icon-edit edit_contact"></i></a>
+                            @ll.address<br />
+                            @ll.address_line2<br />
+                            @ll.city, @ll.state @ll.zip_code
+                        </address>
+                    </div>
+                    }
+                }
+                }
+            </div>
+            }
+        }
+    </div>
+    <h3>Contacts<a data-toggle="modal" href="/Contacts/New?account=@a.ID" data-target="#myModal"><i class="icon-plus"></i></a></h3>
+    <div class="container">
+        @{          
+            for (int i = 1; i < (c != null ? c.Length : -1) + 1; i++)
+            {
+            <div class="row contact">
+                @{
+                for (int j = 0; j < 3; j++)
+                {
+                    if (i * j < c.Length)
+                    {
+                        MB_Pipeline.Controllers.Models.Contact cc = c[i * j];
+                    <div class="span3">
+                        <address>
+                            <a data-toggle="modal" href="/Contacts?contact=@cc.id&account=@a.ID" data-target="#myModal"><i class="icon-edit edit_contact"></i></a>
+                            <strong>@cc.name</strong><br />
+                            @cc.address<br />
+                            @cc.address_line2<br />
+                            @cc.city, @cc.state @cc.zip_code
+                            <br />
+                            @cc.country
+                        </address>
+                        <address>
+                            <abbr title="Phone">P:</abbr>
+                            @cc.phone_number<br />
+                            <abbr title="Email">E:</abbr>
+                            <a href="mailto:#">@cc.email</a>
+                        </address>
+                    </div>
+                    }
+                }
+                }
+            </div>
+            }
+        }
+    </div>
+</div>
+

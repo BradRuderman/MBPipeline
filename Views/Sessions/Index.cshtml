@@ -1,0 +1,36 @@
+﻿@{
+    ViewBag.Title = "Sign In";
+}
+<div class="row">
+    <div class="span6 offset3">
+        <h1>Sign in</h1>
+        @using (Html.BeginForm("New", "Sessions", FormMethod.Post))
+        {
+            string url = Request.Params["ReturnUrl"];
+            url = url == null && Request.UrlReferrer != null ? Request.UrlReferrer.ToString() : url;
+            <input type="hidden" name="ReturnUrl" value="@(url != null ? url : "")" />
+            <p>
+                <label for="title">Email:</label>
+                <input type="text" name="email" value="@Request.Form["email"]" />
+            </p>
+
+            <p>
+                <label for="password">Password:</label>
+                <input type="password" name="password" />
+            </p>
+            
+            <p>
+
+                <label for="remember">
+                    Remember Me:
+                    <input type="checkbox" name="remember" value="@Request.Form["remember"]" />
+                </label>
+            </p>
+            
+            <p>
+                <input class="btn btn-large btn-primary" type="submit" name="buttonSubmit" value="Sign in" />
+            </p>
+
+        }
+    </div>
+</div>

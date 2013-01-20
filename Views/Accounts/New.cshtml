@@ -1,0 +1,26 @@
+﻿@{
+    ViewBag.Title = "New Account";
+    //Layout = "~/Views/Shared/_Modal.cshtml";
+    Layout = null;
+}
+@using (Html.BeginForm("New_Account", "Accounts", FormMethod.Post))
+{
+    <p>
+        <label for="Name">Name:</label>
+        <input type="text" name="name" value="" />
+        <br />
+        <label for="state">Parent Account:</label>
+        @Html.DropDownList("parent_account_dropdown", (List<SelectListItem>)ViewBag.ParentAccounts)
+    </p>
+
+    <div class="modal-footer">
+        <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+        <input class="btn btn-large btn-primary" type="submit" name="buttonSubmit" value="Save" />
+    </div>
+
+}
+<script type="text/javascript">
+    $(function () {
+        LoadModal('New Account');
+    });
+</script>

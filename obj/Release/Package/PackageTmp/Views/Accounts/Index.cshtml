@@ -1,0 +1,42 @@
+﻿@{
+    ViewBag.Title = "Accounts";
+    ViewBag.Ready = "accounts_index";
+}
+@model List<MB_Pipeline.Controllers.Models.Account_Dashboard>
+
+<h2>@ViewBag.Title<a data-toggle="modal" href="/Accounts/New" data-target="#myModal"><i id="add_account" class="icon-plus"></i></a></h2>
+<table class="table table-striped table-hover table-bordered">
+    <thead>
+        <tr>
+            <th class="hide">ID</th>
+            <th>Name</th>
+            <th>Sales Stage</th>
+            <th>Volume</th>
+            <th>Units</th>
+            <th>Revenue</th>
+            <th>Account Rank</th>
+            <th>Visits Per Year</th>
+            <th>Main Contact</th>
+            <th>Account Parent</th>
+            <th>Account Group</th>
+        </tr>
+    </thead>
+    <tbody>
+       @foreach (MB_Pipeline.Controllers.Models.Account_Dashboard d in Model)
+       {
+           <tr>
+               <td class="hide">@d.ID.ToString()</td>
+               <td><a href="/Accounts/Details/@d.ID.ToString()">@d.name</a></td>
+               <td>@d.sales_stage</td>
+               <td>@d.volume.ToString()</td>
+               <td>@d.units</td>
+               <td>@String.Format("{0:C}", d.revenue)</td>
+               <td>@d.account_rank</td>
+               <td>@d.visits_per_year</td>
+               <td>@d.contact_name</td>
+               <td>@d.parent</td>
+               <td>no group TBI</td>
+           </tr>
+       }
+    </tbody>
+</table>
